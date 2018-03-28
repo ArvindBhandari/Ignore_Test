@@ -1,0 +1,40 @@
+package example.programming;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class ParameterizedINSERTQuery
+{
+	public static void main(String [] args)
+	{
+		Connection conn=null;
+		PreparedStatement pstmt =null;
+		String SQL="insert into Fruits values(?,?)";
+		try{
+			conn = DBUtil.buildConnection();
+			pstmt=conn.prepareStatement(SQL);
+			pstmt.setString(1, "sweetlime");
+			pstmt.setInt(2, 20);
+			int uc=pstmt.executeUpdate();
+			System.out.println(uc+"record inserted..");
+			
+			}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				pstmt.close();
+				conn.close();
+			}
+			catch(SQLException e){
+				e.printStackTrace();
+			}
+				
+			}
+		}
+	}
+
+
